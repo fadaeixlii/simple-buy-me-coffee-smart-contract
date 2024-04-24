@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.0;
 
 
 
-contract Lock {
+contract BuyMeACoffee {
     // event to emit when memo is created 
     event NewMemo(
         address from,
@@ -33,7 +33,7 @@ contract Lock {
 
 
 // buy a coffee for contract owner 
-    fucntion buyCoffee(string memory _name,string memory _message) public payable {
+    function buyCoffee(string memory _name,string memory _message) public payable {
         require(msg.value > 0,"cant buy coffee with zero eth");
         memos.push(
             Memo(
@@ -51,6 +51,17 @@ contract Lock {
         );
     }
 
+
+   
+    function withdrawTips() public {
+        
+        require(owner.send(address(this).balance));
+
+    }
+
+    function getMemos() public view returns (Memo[] memory) {
+        return memos;
+    }
 
 
 }
